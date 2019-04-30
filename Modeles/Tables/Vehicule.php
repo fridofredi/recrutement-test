@@ -2,6 +2,8 @@
 
 namespace Modeles\Tables;
 
+use \Connexion;
+
 /**
 *@table="vehicule"
 */
@@ -9,25 +11,25 @@ class Vehicule
 {
 
     /**
-    *@column(field="ID",type="int(11)",key="PRI",extra="auto_increment")
-    */
+     *@column(field="ID",type="int(11)",key="PRI",extra="auto_increment")
+     */
     private $id;
-    
+
     /**
-    *@column(field="TYPE_VEHICULE_ID",type="int(11)",key="MUL",extra="")
-    */
+     *@column(field="TYPE_VEHICULE_ID",type="int(11)",key="MUL",extra="")
+     */
     private $type_vehicule_id;
-    
+
     /**
-    *@column(field="DATE_ACHAT",type="date",key="",extra="")
-    */
+     *@column(field="DATE_ACHAT",type="date",key="",extra="")
+     */
     private $date_achat;
-    
+
     /**
-    *@column(field="GESTIONNAIRE_ID",type="int(11)",key="MUL",extra="")
-    */
+     *@column(field="GESTIONNAIRE_ID",type="int(11)",key="MUL",extra="")
+     */
     private $gestionnaire_id;
-    
+
     /**
      * Vehicule constructor
      */
@@ -112,28 +114,79 @@ class Vehicule
     {
         return $this->getId();
     }
-            
+
     /**
-    * @Classe(name=TYPE_VEHICULE,id=Type_vehicule_id)
-    */
+     * @Classe(name=TYPE_VEHICULE,id=Type_vehicule_id)
+     */
     public function Type_vehicule()
     {
         $t = new Type_vehicule;
         $t->setId($this->getType_vehicule_id());
-        return $t->findAll();
+        return $t->findAll()[0];
     }
-                
-            
+
+
     /**
-    * @Classe(name=GESTIONNAIRE,id=Gestionnaire_id)
-    */
+     * @Classe(name=GESTIONNAIRE,id=Gestionnaire_id)
+     */
     public function Gestionnaire()
     {
         $t = new Gestionnaire;
         $t->setId($this->getGestionnaire_id());
-        return $t->findAll();
+        return $t->find();
     }
-                
+
+    public function findAll()
+    {
+        $req = Connexion::getInstance()->prepare('select * from vehicule');
+        $req->execute();
+        $res = $req->fetchAll(\PDO::FETCH_OBJ);
+        $tab = [];
+        $v = new Vehicule();
+        foreach ($res as $re) {
+            $v->setId($re->ID);
+            $v->setGestionnaire_id($re->GESTIONNAIRE_ID);
+            $v->setType_vehicule_id($re->TYPE_VEHICULE_ID);
+            $v->setDate_achat($re->DATE_ACHAT);
+            $tab[] = $v;
+        }
+
+        return $tab;
+    }
+
+    public function save()
+    {
+        if (empty($this->getId())) {
+            $req = Connexion::getInstance()
+                ->prepare("insert into vehicule 
+                    values(NULL , {$this->getType_vehicule_id()} , '{$this->getDate_achat()}' , {$this->getGestionnaire_id()})");
+            return $req->execute();
+        } else {
+            $req = Connexion::getInstance()
+                ->prepare("update vehicule 
+                set type_vehicule_id = {$this->getType_vehicule_id()} , date_achat = '{$this->getDate_achat()}' , 
+                    gestionnaire_id  = {$this->getGestionnaire_id()} where id = {$this->getId()}");
+            return $req->execute();
+        }
+    }
+
+    public function remove()
+    {
+        $req = Connexion::getInstance()
+            ->prepare("delete from vehicule where id = {$this->getId()}");
+        return $req->execute();
+    }
+
+    public function find()
+    {
+        $req = Connexion::getInstance()
+            ->prepare("select * from vehicule where id = {$this->getId()}");
+        $req->execute();
+        $res = $req->fetch(\PDO::FETCH_OBJ);
+        $this->setDate_achat($res->DATE_ACHAT);
+        $this->setGestionnaire_id($res->GESTIONNAIRE_ID);
+        $this->setType_vehicule_id($res->TYPE_VEHICULE_ID);
+        return $res;
+    }
 
 }
- ?>

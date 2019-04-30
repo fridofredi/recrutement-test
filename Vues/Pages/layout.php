@@ -133,6 +133,8 @@
 <script type="text/javascript" src="Vues/assets/js/mdb.min.js"></script>
 <script>
     new WOW().init();
+    // Data Picker Initialization
+    $('.datepicker').pickadate();
 </script>
 </body>
 

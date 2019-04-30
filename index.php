@@ -15,6 +15,7 @@ array_shift($pages);
 array_shift($pages);
 
 $_SESSION['admin_id'] = 1;
+$_SESSION['gestionnaire_id'] = 2;
 
 try {
     ($_SESSION['csrf'] ?? $_SESSION['csrf'] = sha1(random_bytes(8)));
