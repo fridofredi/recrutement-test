@@ -60,7 +60,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="#" class="list-group-item list-group-item-action waves-effect">
-                            <i class="fas fa-map mr-3"></i>Vechicule</a>
+                            <i class="fas fa-map mr-3"></i>Vehicule</a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="list-group-item list-group-item-action waves-effect">
@@ -84,13 +84,15 @@
             <a href="#" class="list-group-item active waves-effect">
                 <i class="fas fa-chart-pie mr-3"></i>Accueil
             </a>
-            <a href="#" class="list-group-item list-group-item-action waves-effect">
+            <a href="index.php?page=Gestionnaire" class="list-group-item list-group-item-action waves-effect">
                 <i class="fas fa-user mr-3"></i>Gestionnaire</a>
-            <a href="#" class="list-group-item list-group-item-action waves-effect">
+            <a href="index.php?page=Technicien" class="list-group-item list-group-item-action waves-effect">
                 <i class="fas fa-table mr-3"></i>Technicien</a>
-            <a href="#" class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-map mr-3"></i>Vechicule</a>
-            <a href="#" class="list-group-item list-group-item-action waves-effect">
+            <a href="index.php?page=Type_vehicule" class="list-group-item list-group-item-action waves-effect">
+                <i class="fas fa-map mr-3"></i>Type de véhicule</a>
+            <a href="index.php?page=Vehicule" class="list-group-item list-group-item-action waves-effect">
+                <i class="fas fa-map mr-3"></i>Vehicule</a>
+            <a href="index.php?page=Piece" class="list-group-item list-group-item-action waves-effect">
                 <i class="fas fa-money-bill-alt mr-3"></i>Pièce</a>
         </div>
 
