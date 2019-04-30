@@ -2,89 +2,90 @@
 
 namespace Controllers;
 
-use Modeles\Tables\Type_vehicule;
+use Modeles\Tables\Probleme;
 
 class ProblemeController extends Controller
 {
-    public function indexAction()
+    public function indexAction($vehicule)
     {
-        $type = new Type_vehicule();
-        $type_vehicules = $type->findAll();
+        $probleme = new Probleme();
+        $probleme->setVehicule_id($vehicule);
+        $problemes = $probleme->findAllProblemeByVehicule();
         $token = sha1(time());
         $_SESSION['token'] = $token;
         $this->setLayout("layout");
-        echo $this->renderView("type_vehicule/type_vehicule_show", ['table_data' => $type_vehicules, 'token' => $token]);
+        echo $this->renderView("probleme/probleme_show", ['table_data' => $problemes, "vehicule" => $vehicule, 'token' => $token]);
     }
 
     public function storeAction()
     {
-        $type_ = addslashes(htmlspecialchars(trim($_POST['type'])));
+        $probleme_ = addslashes(htmlspecialchars(trim($_POST['type'])));
 
-        if ($type_ != "") {
+        if ($probleme_ != "") {
             if ($_POST['csrf'] == $_SESSION['csrf']) {
-                $type = new Type_vehicule();
-                $type->setType($type_);
-                $type->save();
+                $probleme = new Probleme();
+                $probleme->setType($probleme_);
+                $probleme->save();
             }
-            header('Location:index.php?page=Type_vehicule');
+            header('Location:index.php?page=Probleme');
         } else {
-            header("Location:index.php?page=Type_vehicule/create");
+            header("Location:index.php?page=Probleme/create");
         }
     }
 
-    public function createAction()
+    public function createAction($vehicule)
     {
         $this->setLayout("layout");
-        echo $this->renderView("type_vehicule/type_vehicule");
+        echo $this->renderView("probleme/probleme", ["vehicule" => $vehicule]);
 
     }
 
     public function updateAction($id)
     {
-        $type = new Type_vehicule();
-        $type->setId($id);
-        $type->find();
+        $probleme = new Probleme();
+        $probleme->setId($id);
+        $probleme->find();
         $this->setLayout("layout");
-        echo $this->renderView("type_vehicule/type_vehicule_update", ['table' => $type, 'id' => $id]);
+        echo $this->renderView("probleme/probleme_update", ['table' => $probleme, 'id' => $id]);
     }
 
     public function upgradeAction()
     {
-        $type = new Type_vehicule();
-        $type->setId($_POST['id']);
-        if (!empty($type->find())) {
-            $type_ = addslashes(htmlspecialchars(trim($_POST['type'])));
-            if ($type_ != "") {
+        $probleme = new Probleme();
+        $probleme->setId($_POST['id']);
+        if (!empty($probleme->find())) {
+            $probleme_ = addslashes(htmlspecialchars(trim($_POST['type'])));
+            if ($probleme_ != "") {
                 if ($_POST['csrf'] == $_SESSION['csrf']) {
-                    $type->setType($type_);
-                    $type->save();
+                    $probleme->setType($probleme_);
+                    $probleme->save();
                 }
-                header('Location:index.php?page=Type_vehicule');
+                header('Location:index.php?page=Probleme');
             } else {
-                header("Location:index.php?page=Type_vehicule/update/" . $_POST['id']);
+                header("Location:index.php?page=Probleme/update/" . $_POST['id']);
             }
         }
-        header('Location:index.php?page=Type_vehicule');
+        header('Location:index.php?page=Probleme');
     }
 
     public function showAction($id)
     {
-        $type = new Type_vehicule();
-        $type->setId($id);
-        $type->find();
+        $probleme = new Probleme();
+        $probleme->setId($id);
+        $probleme->find();
         $this->setLayout("layout");
-        echo $this->renderView("type_vehicule/type_vehicule_showone", ['table' => $type, 'id' => $id]);
+        echo $this->renderView("probleme/probleme_showone", ['table' => $probleme, 'id' => $id]);
     }
 
     public function removeAction($id, $token)
     {
 
         if ($token == $_SESSION['token']) {
-            $type = new Type_vehicule();
-            $type->setId($id);
-            $type->remove();
+            $probleme = new Probleme();
+            $probleme->setId($id);
+            $probleme->remove();
         }
-        header('Location:index.php?page=Type_vehicule');
+        header('Location:index.php?page=Probleme');
     }
 
 }

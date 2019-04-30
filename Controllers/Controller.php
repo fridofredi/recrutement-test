@@ -20,7 +20,6 @@ class Controller
 
     /**
      * Controller constructor.
-     * @param string $layout
      */
     public function __construct()
     {

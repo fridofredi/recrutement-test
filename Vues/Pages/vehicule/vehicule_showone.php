@@ -42,6 +42,10 @@
                         <ul>
                             <li>Type de véhicule : <?= $table->Type_vehicule()->TYPE; ?></li>
                             <li>Date d'achat : <?= $table->getDate_achat(); ?></li>
+                            <a class='btn btn-info right-float'
+                               href="index.php?page=Probleme/index/<?= $table->getId() ?>">Liste des problèmes</a>
+                            <a class='btn btn-info right-float'
+                               href="index.php?page=Probleme/create/<?= $table->getId() ?>">Déclarer un problème</a>
                         </ul>
                     </div>
                     <!--Panel content-->
