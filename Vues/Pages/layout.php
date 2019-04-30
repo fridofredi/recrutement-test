@@ -66,6 +66,11 @@
                         <a href="#" class="list-group-item list-group-item-action waves-effect">
                             <i class="fas fa-money-bill-alt mr-3"></i>Pièce</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="index.php?page=Auth/logout"
+                           class="list-group-item list-group-item-action waves-effect">
+                            <i class="fas fa-money-bill-alt mr-3"></i>Déconnexion</a>
+                    </li>
                 </ul>
             </div>
 

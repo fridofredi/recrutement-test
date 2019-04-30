@@ -18,6 +18,18 @@ class Controller
      */
     protected $layout;
 
+    /**
+     * Controller constructor.
+     * @param string $layout
+     */
+    public function __construct()
+    {
+        if (!$_SESSION['connect']) {
+            header("Location:index.php?page=Auth/login");
+        }
+    }
+
+
     public function renderView(string $vue, array $data = [])
     {
         /**

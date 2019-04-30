@@ -2,6 +2,8 @@
 
 namespace Modeles\Tables;
 
+use \Connexion;
+
 /**
 *@table="admin"
 */
@@ -9,30 +11,30 @@ class Admin
 {
 
     /**
-    *@column(field="ID",type="int(11)",key="PRI",extra="auto_increment")
-    */
+     *@column(field="ID",type="int(11)",key="PRI",extra="auto_increment")
+     */
     private $id;
-    
+
     /**
-    *@column(field="NOM",type="varchar(50)",key="",extra="")
-    */
+     *@column(field="NOM",type="varchar(50)",key="",extra="")
+     */
     private $nom;
-    
+
     /**
-    *@column(field="PRENOMS",type="varchar(150)",key="",extra="")
-    */
+     *@column(field="PRENOMS",type="varchar(150)",key="",extra="")
+     */
     private $prenoms;
-    
+
     /**
-    *@column(field="USERNAME",type="varchar(100)",key="",extra="")
-    */
+     *@column(field="USERNAME",type="varchar(100)",key="",extra="")
+     */
     private $username;
-    
+
     /**
-    *@column(field="PASSWORD",type="text",key="",extra="")
-    */
+     *@column(field="PASSWORD",type="text",key="",extra="")
+     */
     private $password;
-    
+
     /**
      * Admin constructor
      */
@@ -136,5 +138,19 @@ class Admin
         return $this->getId();
     }
 
+    public function connect()
+    {
+        $req = Connexion::getInstance()
+            ->prepare("select * from admin where username = '{$this->getUsername()}' and password = '{$this->getPassword()}'");
+        $req->execute();
+        $res = $req->fetchAll(\PDO::FETCH_OBJ);
+        if (!empty($res) and count($res) == 1) {
+            $this->setId($res[0]->ID);
+            return true;
+        }
+        return false;
+    }
+
 }
- ?>
+
+?>

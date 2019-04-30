@@ -215,6 +215,19 @@ class Technicien
         return $res;
     }
 
+    public function connect()
+    {
+        $req = Connexion::getInstance()
+            ->prepare("select * from technicien where username = '{$this->getUsername()}' and password = '{$this->getPassword()}'");
+        $req->execute();
+        $res = $req->fetchAll(\PDO::FETCH_OBJ);
+        if (!empty($res) and count($res) == 1) {
+            $this->setId($res[0]->ID);
+            return true;
+        }
+        return false;
+    }
+
 }
 
 ?>
