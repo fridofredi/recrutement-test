@@ -121,7 +121,7 @@ class Probleme
     {
         $t = new Technicien;
         $t->setId($this->getTechnicien_id());
-        return $t->findAll();
+        return $t->find();
     }
 
 
@@ -133,6 +133,11 @@ class Probleme
         $t = new Vehicule;
         $t->setId($this->getVehicule_id());
         return $t->findAll();
+    }
+
+    public function Maintenance()
+    {
+        return $this->findByMaintenance();
     }
 
     public function findAllProblemeByVehicule()
@@ -174,15 +179,19 @@ class Probleme
     public function save()
     {
         if (empty($this->getId())) {
-            $req = Connexion::getInstance()
-                ->prepare("insert into probleme 
-                    values(NULL , {$this->getTechnicien_id()} , '{$this->getVehicule_id()}' , {$this->getDetail()})");
-            return $req->execute();
+            if (empty($d = $this->search())) {
+                $req = Connexion::getInstance()
+                    ->prepare("insert into probleme values(NULL , {$this->getTechnicien_id()} , {$this->getVehicule_id()} , '{$this->getDetail()}')");
+                $req->execute();
+                return $this->search();
+            } else {
+                return $d;
+            }
         } else {
             $req = Connexion::getInstance()
                 ->prepare("update probleme 
-                set technicien_id = {$this->getTechnicien_id()} , vehicule_id = '{$this->getVehicule_id()}' , 
-                    detail  = {$this->getDetail()} where id = {$this->getId()}");
+                set technicien_id = {$this->getTechnicien_id()} , vehicule_id = {$this->getVehicule_id()} , 
+                    detail  = '{$this->getDetail()}' where id = {$this->getId()}");
             return $req->execute();
         }
     }
@@ -194,6 +203,18 @@ class Probleme
         return $req->execute();
     }
 
+    public function search()
+    {
+        $req = Connexion::getInstance()
+            ->prepare("select * from probleme where technicien_id = {$this->getTechnicien_id()} and vehicule_id = {$this->getVehicule_id()}");
+        $req->execute();
+        $res = $req->fetch(\PDO::FETCH_OBJ);
+        if (!empty($res)) {
+            $this->setId($res->ID);
+        }
+        return $res;
+    }
+
     public function find()
     {
         $req = Connexion::getInstance()
@@ -203,6 +224,24 @@ class Probleme
         $this->setTechnicien_id($res->TECHNICIEN_ID);
         $this->setVehicule_id($res->VEHICULE_ID);
         $this->setDetail($res->DETAIL);
+        return $res;
+    }
+
+    public function findByMaintenance()
+    {
+        $req = Connexion::getInstance()
+            ->prepare("select * from maintenance where PROBLEME_ID = {$this->getId()}");
+        $req->execute();
+        $res = $req->fetch(\PDO::FETCH_OBJ);
+        return $res;
+    }
+
+    public function deepFind()
+    {
+        $req = Connexion::getInstance()
+            ->prepare("select p.*, m.ID as MAINTENANCE_ID, m.DATE_DEBUT, m.DATE_FIN, m.SUJET, m.DESCRIPTION from probleme p LEFT JOIN maintenance m on p.id = m.PROBLEME_ID where p.id = {$this->getId()}");
+        $req->execute();
+        $res = $req->fetch(\PDO::FETCH_OBJ);
         return $res;
     }
 

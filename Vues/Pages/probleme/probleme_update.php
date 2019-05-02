@@ -30,41 +30,42 @@
                     <!--Panel Header-->
                     <div class="view view-cascade py-3 gradient-card-header">
                         <p class="lead">
-                            <span class="badge info-color-dark p-2">Ajout d'un probleme</span>
+                            <span class="badge info-color-dark p-2">Modifier un probleme</span>
                         </p>
                     </div>
                     <!--/Panel Header-->
 
                     <!--Panel content-->
                     <div class="card-body">
-                        <a class='btn btn-info right-float' href="index.php?page=Probleme">Liste des problemes</a>
+                        <a class='btn btn-info right-float' href="index.php?page=Vehicule">Liste des problemes</a>
                         <h1>&nbsp;</h1>
-                        <form action='index.php?page=Probleme/store/<?= $vehicule ?>' method='post' id='datatable'
+
+                        <form action='index.php?page=Probleme/upgrade' method='post' id='datatable'
                               class='form-element'>
                             <?= $CSRF() ?>
-                            <div class='form-row'>
+                            <input class='form-control' name="id" id="id" type="hidden" value="<?= $id ?>">
 
+                            <div class='form-row'>
                                 <div class='col-12'>
                                     <div class='md-form'>
                                         <label for='detail'>DETAIL</label>
-                                        <textarea class='md-textarea form-control' name='detail'
-                                                  placeholder='DETAIL'></textarea>
+                                        <textarea class='md-textarea form-control' id="detail"
+                                                  name='detail'><?= $table->DETAIL ?></textarea>
                                     </div>
                                 </div>
-
                             </div>
+
                             <div class="view view-cascade py-3 gradient-card-header">
                                 <p class="lead">
                                     <span class="badge info-color-dark p-2">Opération de maintenance</span>
                                 </p>
                             </div>
-                            <div class="form-row">
-
+                            <div class='form-row'>
                                 <div class='col-6'>
                                     <div class='md-form'>
-                                        <label for='date_debut'>Date de debut</label>
+                                        <label for='date_debut'>Date de début</label>
                                         <input class='form-control' name='date_debut' id='date_debut' type='date'
-                                               placeholder='DATE_DEBUT'>
+                                               value='<?= $table->DATE_DEBUT ?>' placeholder='DATE_DEBUT'>
                                     </div>
                                 </div>
 
@@ -72,26 +73,27 @@
                                     <div class='md-form'>
                                         <label for='date_fin'>Date de fin</label>
                                         <input class='form-control' name='date_fin' id='date_fin' type='date'
-                                               placeholder='DATE_FIN'>
+                                               value='<?= $table->DATE_FIN ?>' placeholder='DATE_FIN'>
                                     </div>
                                 </div>
 
-                                <div class='col-12'>
+                                <div class='col-6'>
                                     <div class='md-form'>
                                         <label for='sujet'>SUJET</label>
                                         <input class='form-control' name='sujet' id='sujet' type='text'
-                                               placeholder='SUJET'>
+                                               value='<?= $table->SUJET ?>' placeholder='SUJET'>
                                     </div>
                                 </div>
 
-                                <div class='col-12'>
+                                <div class='col-6'>
                                     <div class='md-form'>
                                         <label for='description'>DESCRIPTION</label>
-                                        <textarea class='md-textarea form-control' name='description'
-                                                  placeholder='DESCRIPTION'></textarea>
+                                        <input class='form-control' name='description' id='description' type='text'
+                                               value='<?= $table->DESCRIPTION ?>' placeholder='DESCRIPTION'>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="view view-cascade py-3 gradient-card-header">
                                 <p class="lead">
                                     <span class="badge info-color-dark p-2">Pièces</span>
@@ -104,20 +106,20 @@
                                         <label for='description'>Pièces(Liste des pièces séparées par des
                                             virgules)</label>
                                         <textarea class='md-textarea form-control' name='pieces'
-                                                  placeholder='Pièces'></textarea>
+                                                  placeholder='Pièces'><?= $pieces ?></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class='md-form'>
-                                <input type='submit' name='submit' class='btn btn-info' value='Déclarer'>
+                                <input type='submit' name='submit' class='btn btn-info' value='Mettre à jour'>
                                 <input type='reset' class='btn btn-danger' value='Annuler'>
                             </div>
                         </form>
-                    </div>
-                    <!--Panel content-->
 
-                </div>
-                <!--Grid column-->
+                        <!--Panel content-->
+
+                    </div>
+                    <!--Grid column-->
 
         </section>
         <!--Section: Main panel-->

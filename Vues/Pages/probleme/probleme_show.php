@@ -58,10 +58,14 @@
                             <?php foreach ($table_data as $data) : ?>
                                 <tr>
                                     <td><?= $data->getId() ?></td>
-                                    <td><?= $data->Technicien()->getNom() ?></td>
-                                    <td><?= $data->DETAIL ?></td>
+                                    <td><?= $data->Technicien()->NOM ?></td>
+                                    <td><?= $data->getDetail() ?></td>
                                     <td>
-                                        <a href="index.php?page=Probleme/remove/<?= $vehicule ?>/<?= $data->ID ?>?token=<?= $token ?>"><i
+                                        <a href="index.php?page=Probleme/show/<?= $data->getId() ?>"><i
+                                                    class="fa fa-eye fa-2x"></i></a>
+                                        <a href="index.php?page=Probleme/update/<?= $data->getId() ?>"><i
+                                                    class="fa fa-edit fa-2x"></i></a>
+                                        <a href="index.php?page=Probleme/remove/<?= $data->getId() ?>?token=<?= $token ?>"><i
                                                     class="fa fa-trash-alt fa-2x"></i></a>
                                     </td>
                                 </tr>
