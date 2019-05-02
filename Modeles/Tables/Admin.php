@@ -141,7 +141,7 @@ class Admin
     public function connect()
     {
         $req = Connexion::getInstance()
-            ->prepare("select * from admin where username = '{$this->getUsername()}' and password = '{$this->getPassword()}'");
+            ->prepare("select * from admin where USERNAME = '{$this->getUsername()}' and PASSWORD = '{$this->getPassword()}'");
         $req->execute();
         $res = $req->fetchAll(\PDO::FETCH_OBJ);
         if (!empty($res) and count($res) == 1) {

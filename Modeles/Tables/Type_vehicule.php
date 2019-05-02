@@ -86,7 +86,7 @@ class Type_vehicule
         } else {
             $req = Connexion::getInstance()
                 ->prepare("update type_vehicule 
-                set type = '{$this->getType()}' where id = {$this->getId()}");
+                set TYPE = '{$this->getType()}' where ID = {$this->getId()}");
             return $req->execute();
         }
     }
@@ -94,14 +94,14 @@ class Type_vehicule
     public function remove()
     {
         $req = Connexion::getInstance()
-            ->prepare("delete from type_vehicule where id = {$this->getId()}");
+            ->prepare("delete from type_vehicule where ID = {$this->getId()}");
         return $req->execute();
     }
 
     public function find()
     {
         $req = Connexion::getInstance()
-            ->prepare("select * from type_vehicule where id = {$this->getId()}");
+            ->prepare("select * from type_vehicule where ID = {$this->getId()}");
         $req->execute();
         $res = $req->fetch(\PDO::FETCH_OBJ);
         $this->setType($res->TYPE);

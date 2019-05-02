@@ -154,6 +154,14 @@ class Vehicule
         return $tab;
     }
 
+
+    public function restFindAll()
+    {
+        $req = Connexion::getInstance()->prepare('select * from vehicule');
+        $req->execute();
+        return $req->fetchAll(\PDO::FETCH_OBJ);
+    }
+
     public function save()
     {
         if (empty($this->getId())) {
@@ -164,8 +172,8 @@ class Vehicule
         } else {
             $req = Connexion::getInstance()
                 ->prepare("update vehicule 
-                set type_vehicule_id = {$this->getType_vehicule_id()} , date_achat = '{$this->getDate_achat()}' , 
-                    gestionnaire_id  = {$this->getGestionnaire_id()} where id = {$this->getId()}");
+                set TYPE_VEHICULE_ID = {$this->getType_vehicule_id()} , DATE_ACHAT = '{$this->getDate_achat()}' , 
+                    GESTIONNAIRE_ID  = {$this->getGestionnaire_id()} where ID = {$this->getId()}");
             return $req->execute();
         }
     }
@@ -173,14 +181,14 @@ class Vehicule
     public function remove()
     {
         $req = Connexion::getInstance()
-            ->prepare("delete from vehicule where id = {$this->getId()}");
+            ->prepare("delete from vehicule where ID = {$this->getId()}");
         return $req->execute();
     }
 
     public function find()
     {
         $req = Connexion::getInstance()
-            ->prepare("select * from vehicule where id = {$this->getId()}");
+            ->prepare("select * from vehicule where ID = {$this->getId()}");
         $req->execute();
         $res = $req->fetch(\PDO::FETCH_OBJ);
         $this->setDate_achat($res->DATE_ACHAT);

@@ -18,6 +18,9 @@ class GestionnaireController extends Controller
 
     public function storeAction()
     {
+        if (!$_SERVER['REQUEST_METHOD'] === 'POST') {
+            return;
+        }
         $nom = addslashes(htmlspecialchars(trim($_POST['nom'])));
         $prenoms = addslashes(htmlspecialchars(trim($_POST['prenoms'])));
         $username = addslashes(htmlspecialchars(trim($_POST['username'])));
@@ -56,6 +59,9 @@ class GestionnaireController extends Controller
 
     public function upgradeAction()
     {
+        if (!$_SERVER['REQUEST_METHOD'] === 'POST') {
+            return;
+        }
         $g = new Gestionnaire();
         $g->setId($_POST['id']);
         if (!empty($g->find())) {

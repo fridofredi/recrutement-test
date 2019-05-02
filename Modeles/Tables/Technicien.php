@@ -188,8 +188,8 @@ class Technicien
         } else {
             $req = Connexion::getInstance()
                 ->prepare("update technicien 
-                set nom = '{$this->getNom()}' ,prenoms = '{$this->getPrenoms()}' , username = '{$this->getUsername()}',
-                    admin_id = '{$this->getAdmin_id()}', password = '{$this->getPassword()}' where id = {$this->getId()}");
+                set NOM = '{$this->getNom()}' ,PRENOMS = '{$this->getPrenoms()}' , USERNAME = '{$this->getUsername()}',
+                    ADMIN_ID = '{$this->getAdmin_id()}', PASSWORD = '{$this->getPassword()}' where ID = {$this->getId()}");
             return $req->execute();
         }
     }
@@ -197,14 +197,14 @@ class Technicien
     public function remove()
     {
         $req = Connexion::getInstance()
-            ->prepare("delete from technicien where id = {$this->getId()}");
+            ->prepare("delete from technicien where ID = {$this->getId()}");
         return $req->execute();
     }
 
     public function find()
     {
         $req = Connexion::getInstance()
-            ->prepare("select * from technicien where id = {$this->getId()}");
+            ->prepare("select * from technicien where ID = {$this->getId()}");
         $req->execute();
         $res = $req->fetch(\PDO::FETCH_OBJ);
         $this->setNom($res->NOM);
@@ -218,7 +218,7 @@ class Technicien
     public function connect()
     {
         $req = Connexion::getInstance()
-            ->prepare("select * from technicien where username = '{$this->getUsername()}' and password = '{$this->getPassword()}'");
+            ->prepare("select * from technicien where USERNAME = '{$this->getUsername()}' and PASSWORD = '{$this->getPassword()}'");
         $req->execute();
         $res = $req->fetchAll(\PDO::FETCH_OBJ);
         if (!empty($res) and count($res) == 1) {

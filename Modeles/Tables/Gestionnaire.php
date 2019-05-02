@@ -187,8 +187,8 @@ class Gestionnaire
         }else{
             $req = Connexion::getInstance()
                 ->prepare("update gestionnaire 
-                set nom = '{$this->getNom()}' ,prenoms = '{$this->getPrenoms()}' , username = '{$this->getUsername()}',
-                    admin_id = '{$this->getAdmin_id()}', password = '{$this->getPassword()}' where id = {$this->getId()}");
+                set NOM = '{$this->getNom()}' ,PRENOMS = '{$this->getPrenoms()}' , USERNAME = '{$this->getUsername()}',
+                    ADMIN_ID = '{$this->getAdmin_id()}', PASSWORD = '{$this->getPassword()}' where ID = {$this->getId()}");
             return $req->execute();
         }
     }
@@ -196,14 +196,14 @@ class Gestionnaire
     public function remove()
     {
         $req = Connexion::getInstance()
-            ->prepare("delete from gestionnaire where id = {$this->getId()}");
+            ->prepare("delete from gestionnaire where ID = {$this->getId()}");
         return $req->execute();
     }
 
     public function find()
     {
         $req = Connexion::getInstance()
-            ->prepare("select * from gestionnaire where id = {$this->getId()}");
+            ->prepare("select * from gestionnaire where ID = {$this->getId()}");
         $req->execute();
         $res = $req->fetch(\PDO::FETCH_OBJ);
         $this->setNom($res->NOM);

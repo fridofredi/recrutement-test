@@ -119,6 +119,14 @@ class Piece
         return $tab;
     }
 
+
+    public function restFindAll()
+    {
+        $req = Connexion::getInstance()->prepare('select * from piece');
+        $req->execute();
+        return $req->fetchAll(\PDO::FETCH_OBJ);
+    }
+
     public function save()
     {
         if (empty($this->getId())) {
@@ -129,8 +137,8 @@ class Piece
         } else {
             $req = Connexion::getInstance()
                 ->prepare("update piece 
-                set piece = '{$this->getPiece()}' , maintenance_id = {$this->getMaintenance_id()}
-                    where id = {$this->getId()}");
+                set PIECE = '{$this->getPiece()}' , MAINTENANCE_ID = {$this->getMaintenance_id()}
+                    where ID = {$this->getId()}");
             return $req->execute();
         }
     }
@@ -138,14 +146,14 @@ class Piece
     public function remove()
     {
         $req = Connexion::getInstance()
-            ->prepare("delete from piece where id = {$this->getId()}");
+            ->prepare("delete from piece where ID = {$this->getId()}");
         return $req->execute();
     }
 
     public function find()
     {
         $req = Connexion::getInstance()
-            ->prepare("select * from piece where id = {$this->getId()}");
+            ->prepare("select * from piece where ID = {$this->getId()}");
         $req->execute();
         $res = $req->fetch(\PDO::FETCH_OBJ);
         $this->setMaintenance_id($res->MAINTENANCE_ID);

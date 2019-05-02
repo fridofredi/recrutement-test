@@ -18,6 +18,9 @@ class Type_vehiculeController extends Controller
 
     public function storeAction()
     {
+        if (!$_SERVER['REQUEST_METHOD'] === 'POST') {
+            return;
+        }
         $type_ = addslashes(htmlspecialchars(trim($_POST['type'])));
 
         if ($type_ != "") {
@@ -50,6 +53,9 @@ class Type_vehiculeController extends Controller
 
     public function upgradeAction()
     {
+        if (!$_SERVER['REQUEST_METHOD'] === 'POST') {
+            return;
+        }
         $type = new Type_vehicule();
         $type->setId($_POST['id']);
         if (!empty($type->find())) {

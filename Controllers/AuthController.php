@@ -15,13 +15,17 @@ class AuthController
 
     public function loginAction()
     {
-        if ($_SESSION['connect'])
-            header("Location:index.php?page=Gestionnaire");
+        if (isset($_SESSION['connect']))
+            header("Location:index.php?page=Default");
         require_once("Vues/Pages/login.php");
     }
 
     public function logAction()
     {
+        if (!$_SERVER['REQUEST_METHOD'] === 'POST') {
+            return;
+        }
+
         $username = addslashes(htmlspecialchars(trim($_POST['username'])));
         $password = sha1(trim($_POST['password']));
         $type = addslashes(htmlspecialchars(trim($_POST['type'] ?? "")));
@@ -58,7 +62,7 @@ class AuthController
         }
         $_SESSION['connect'] = $connect;
         if ($connect) {
-            header("Location:index.php?page=Gestionnaire");
+            header("Location:index.php?page=Default");
         } else {
             header("Location:index.php?page=Auth/error404");
         }

@@ -190,6 +190,26 @@ class Maintenance
         return $tab;
     }
 
+    public function getAllVehicleOnMaintenanceNow()
+    {
+        $req = Connexion::getInstance()
+            ->prepare("
+                select v.* , tv.*, m.DATE_FIN
+                from vehicule v JOIN type_vehicule tv on v.TYPE_VEHICULE_ID = tv.ID 
+                  LEFT JOIN probleme p on v.ID = p.VEHICULE_ID 
+                  LEFT JOIN maintenance m on p.ID = m.PROBLEME_ID where m.DATE_FIN > NOW()");
+        $req->execute();
+        $res = $req->fetchAll(\PDO::FETCH_OBJ);
+        return $res;
+    }
+
+    public function restFindAll()
+    {
+        $req = Connexion::getInstance()->prepare('select * from maintenance');
+        $req->execute();
+        return $req->fetchAll(\PDO::FETCH_OBJ);
+    }
+
     public function save()
     {
         if (empty($d = $this->getId())) {
@@ -202,9 +222,9 @@ class Maintenance
         } else {
             $req = Connexion::getInstance()
                 ->prepare("update maintenance 
-                set date_debut = '{$this->getDate_debut()}' , date_fin = '{$this->getDate_fin()}' , 
-                    sujet  = '{$this->getSujet()}', description = '{$this->getDescription()}',
-                    probleme_id = {$this->getProbleme_id()} where id = {$this->getId()}");
+                set DATE_DEBUT= '{$this->getDate_debut()}' , DATE_FIN = '{$this->getDate_fin()}' , 
+                    SUJET  = '{$this->getSujet()}', DESCRIPTION = '{$this->getDescription()}',
+                    PROBLEME_ID = {$this->getProbleme_id()} where ID = {$this->getId()}");
             return $req->execute();
         }
     }
@@ -213,9 +233,9 @@ class Maintenance
     public function search()
     {
         $req = Connexion::getInstance()
-            ->prepare("select * from maintenance where date_debut = '{$this->getDate_debut()}' and date_fin = '{$this->getDate_fin()}'  and 
-                    sujet  = '{$this->getSujet()}' and description = '{$this->getDescription()}' and
-                    probleme_id = {$this->getProbleme_id()}");
+            ->prepare("select * from maintenance where DATE_DEBUT= '{$this->getDate_debut()}' and DATE_FIN = '{$this->getDate_fin()}'  and 
+                    SUJET  = '{$this->getSujet()}' and DESCRIPTION = '{$this->getDescription()}' and
+                    PROBLEME_ID = {$this->getProbleme_id()}");
         $req->execute();
         $res = $req->fetch(\PDO::FETCH_OBJ);
         if (!empty($res)) {
@@ -227,14 +247,14 @@ class Maintenance
     public function remove()
     {
         $req = Connexion::getInstance()
-            ->prepare("delete from maintenance where id = {$this->getId()}");
+            ->prepare("delete from maintenance where ID = {$this->getId()}");
         return $req->execute();
     }
 
     public function find()
     {
         $req = Connexion::getInstance()
-            ->prepare("select * from maintenance where id = {$this->getId()}");
+            ->prepare("select * from maintenance where ID = {$this->getId()}");
         $req->execute();
         $res = $req->fetch(\PDO::FETCH_OBJ);
         $this->setSujet($res->SUJET);

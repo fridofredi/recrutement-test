@@ -22,6 +22,9 @@ class ProblemeController extends Controller
 
     public function storeAction($vehicule)
     {
+        if (!$_SERVER['REQUEST_METHOD'] === 'POST') {
+            return;
+        }
         $detail = addslashes(htmlspecialchars(trim($_POST['detail'])));
         $date_debut = addslashes(htmlspecialchars(trim($_POST['date_debut'])));
         $date_fin = addslashes(htmlspecialchars(trim($_POST['date_fin'])));
@@ -95,6 +98,9 @@ class ProblemeController extends Controller
 
     public function upgradeAction()
     {
+        if (!$_SERVER['REQUEST_METHOD'] === 'POST') {
+            return;
+        }
         $probleme = new Probleme();
         $probleme->setId($_POST['id']);
         if (!empty($probleme->find())) {
