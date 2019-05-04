@@ -18,7 +18,7 @@ class TechnicienController extends Controller
 
     public function storeAction()
     {
-        if (!$_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             return;
         }
         $nom = addslashes(htmlspecialchars(trim($_POST['nom'])));
@@ -59,7 +59,7 @@ class TechnicienController extends Controller
 
     public function upgradeAction()
     {
-        if (!$_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             return;
         }
         $t = new Technicien();

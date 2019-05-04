@@ -22,7 +22,7 @@ class ProblemeController extends Controller
 
     public function storeAction($vehicule)
     {
-        if (!$_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             return;
         }
         $detail = addslashes(htmlspecialchars(trim($_POST['detail'])));
@@ -98,7 +98,7 @@ class ProblemeController extends Controller
 
     public function upgradeAction()
     {
-        if (!$_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             return;
         }
         $probleme = new Probleme();

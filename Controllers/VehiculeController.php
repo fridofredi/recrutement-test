@@ -19,7 +19,7 @@ class VehiculeController extends Controller
 
     public function storeAction()
     {
-        if (!$_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             return;
         }
         $date_achat = addslashes(htmlspecialchars(trim($_POST['date_achat'])));
@@ -56,7 +56,7 @@ class VehiculeController extends Controller
 
     public function upgradeAction()
     {
-        if (!$_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             return;
         }
         $v = new Vehicule();

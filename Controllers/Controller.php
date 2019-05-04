@@ -18,6 +18,8 @@ class Controller
      */
     protected $layout;
 
+    protected $predata = [];
+
     /**
      * Controller constructor.
      */
@@ -26,6 +28,32 @@ class Controller
         if (!$_SESSION['connect']) {
             header("Location:index.php?page=Auth/login");
         }
+        $menus = array(
+            "admin" => array(
+                array("index.php?page=Default", "Accueil", "fas fa-chart-pie mr-3"),
+                array("index.php?page=Technicien", "Technicien", "fas fa-user mr-3"),
+                array("index.php?page=Gestionnaire", "Gestionnaire", "fas fa-user mr-3"),
+            ),
+            "gestionnaire" => array(
+                array("index.php?page=Default", "Accueil", "fas fa-chart-pie mr-3"),
+                array("index.php?page=Vehicule", "Vehicule", "fas fa-car mr-3"),
+                array("index.php?page=Type_vehicule", "Type de véhicule", "fas fa-map mr-3"),
+            ),
+            "technicien" => array(
+                array("index.php?page=Default", "Accueil", "fas fa-chart-pie mr-3"),
+                array("index.php?page=Vehicule", "Vehicule", "fas fa-car mr-3")
+            )
+        );
+        $profile_connected = "none";
+        if (isset($_SESSION['technicien_id']) and !empty($_SESSION['technicien_id'])) {
+            $profile_connected = "technicien";
+        } else if (isset($_SESSION['admin_id']) and !empty($_SESSION['admin_id'])) {
+            $profile_connected = "admin";
+        } else if (isset($_SESSION['gestionnaire_id']) and !empty($_SESSION['gestionnaire_id'])) {
+            $profile_connected = "gestionnaire";
+        }
+        $this->predata['menus'] = $menus;
+        $this->predata['profile_connected'] = $profile_connected;
     }
 
 
@@ -34,6 +62,7 @@ class Controller
         /**
          * Convertis le tableau $data en plusieurs variables en fonction de leur clé
          */
+        $data = array_merge_recursive($data, $this->predata);
         extract($data);
 
         $CSRF = function () {

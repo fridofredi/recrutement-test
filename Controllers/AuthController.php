@@ -15,14 +15,14 @@ class AuthController
 
     public function loginAction()
     {
-        if (isset($_SESSION['connect']))
+        if (isset($_SESSION['connect']) and $_SESSION['connect'] == true)
             header("Location:index.php?page=Default");
         require_once("Vues/Pages/login.php");
     }
 
     public function logAction()
     {
-        if (!$_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             return;
         }
 
@@ -79,6 +79,7 @@ class AuthController
         unset($_SESSION['admin_id']);
         unset($_SESSION['technicien_id']);
         $_SESSION['connect'] = false;
+        unset($_SESSION['connect']);
         header("Location:index.php?page=Auth/login");
     }
 }

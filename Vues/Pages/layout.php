@@ -70,17 +70,11 @@
         </a>
 
         <div class="list-group list-group-flush">
-            <a href="index.php?page=Default" class="list-group-item active waves-effect">
-                <i class="fas fa-chart-pie mr-3"></i>Accueil
-            </a>
-            <a href="index.php?page=Gestionnaire" class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-user mr-3"></i>Gestionnaire</a>
-            <a href="index.php?page=Technicien" class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-user mr-3"></i>Technicien</a>
-            <a href="index.php?page=Type_vehicule" class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-map mr-3"></i>Type de véhicule</a>
-            <a href="index.php?page=Vehicule" class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-car mr-3"></i>Vehicule</a>
+            <?php foreach ($menus[$profile_connected] as $menu) : ?>
+                <a href="<?= $menu[0] ?>" class="list-group-item active waves-effect">
+                    <i class="<?= $menu[2] ?>"></i><?= $menu[1] ?>
+                </a>
+            <?php endforeach; ?>
         </div>
 
     </div>
