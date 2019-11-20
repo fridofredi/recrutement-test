@@ -8,8 +8,6 @@ services:
     - mysql
 before_install:
     - composer update
-    - mysql -u root -e "CREATE DATABASE IF NOT EXISTS recrutementTest;"
-    - mysql -u root recrutementTest < ./DB.sql
     
 jobs:
     include:
