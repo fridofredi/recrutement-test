@@ -12,6 +12,8 @@ before_install:
 jobs:
     include:
         - stage: "Building docker image"
-          script: echo "Running job 1"
+          script: 
+          - echo "Running job 1"
+          - echo "Running job 1.1"
         - stage: "Executing security tests"
           script: echo "Running security test"
