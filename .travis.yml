@@ -9,8 +9,7 @@ services:
 before_install:
     - composer update
     - mysql -u root -e "CREATE DATABASE IF NOT EXISTS recrutementTest;"
-    - mysql -u root -e "USE recrutementTest;
-
+    - mysql -u root recrutementTest - e "
 CREATE TABLE IF NOT EXISTS admin
 (
   ID INT primary key AUTO_INCREMENT,
