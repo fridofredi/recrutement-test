@@ -1,0 +1,12 @@
+{
+    "name": "cedrics/recrutement-test",
+    "require": {
+        "phpunit/phpunit": "^8.4"
+    },
+    "authors": [
+        {
+            "name": "CedricSOEDJEDE",
+            "email": "mawuyram-frido.soedjede@etu-univ-coteazur.fr"
+        }
+    ]
+}
