@@ -9,9 +9,9 @@ class Connexion
     private static $pdo;
 
     private static $host = 'localhost';
-    private static $dbname = 'recrutem_recrutementtest';
-    private static $user = 'recrutem_user';
-    private static $password = 'recrutem123456789';
+    private static $dbname = 'recrutementtest';
+    private static $user = 'root';
+    private static $password = '';
 
     /**
      * Initialise une connexion à la base de donnée
