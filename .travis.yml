@@ -8,3 +8,10 @@ services:
     
 before_install:
     - composer install
+    
+jobs:
+    include:
+        - stage: "Building docker image"
+          script: "Running job 1"
+        - stage: "Executing security tests"
+          script: "Running security test"
