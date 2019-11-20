@@ -7,11 +7,11 @@ services:
     - docker
     
 before_install:
-    - composer install
+    - composer update
     
 jobs:
     include:
         - stage: "Building docker image"
-          script: "Running job 1"
+          script: echo "Running job 1"
         - stage: "Executing security tests"
-          script: "Running security test"
+          script: echo "Running security test"
