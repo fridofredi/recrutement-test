@@ -5,9 +5,10 @@ php:
     
 services:
     - docker
-    
+    - mysql
 before_install:
     - composer update
+    - mysql -u root --password="" < DB.sql
     
 jobs:
     include:
