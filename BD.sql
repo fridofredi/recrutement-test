@@ -1,7 +1,3 @@
-CREATE DATABASE IF NOT EXISTS recrutementTest;
-
-USE recrutementTest;
-
 CREATE TABLE IF NOT EXISTS admin
 (
   ID INT primary key AUTO_INCREMENT,
