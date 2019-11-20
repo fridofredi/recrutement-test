@@ -14,6 +14,9 @@ jobs:
         - stage: "Building docker image"
           script: 
           - docker pull php
+          - docker build -t recrutement
+          - docker run -it --rm --name my-running-app my-php-app
+          - docker ps -a
           - echo "Running job 1.1"
         - stage: "Executing security tests"
           script: echo "Running security test"
