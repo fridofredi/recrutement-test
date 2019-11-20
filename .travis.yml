@@ -9,10 +9,9 @@ services:
 jobs:
     include:
         - stage: "Updating composer file"
-        script: composer update
+            script: composer update
         - stage: "Building docker image"
-        script:
-          - docker pull php
-          - docker build -t recrutement-test-stages-demo .
-          - docker images
-          
+            script:
+              - docker pull php
+              - docker build -t recrutement-test-stages-demo .
+              - docker images
