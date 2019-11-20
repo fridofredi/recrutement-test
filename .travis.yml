@@ -1,3 +1,18 @@
 language: php
+
 php:
-        - 7.2
+    - 7.2
+    
+services:
+    - docker
+    
+jobs:
+    include:
+        - stage: "Updating composer file"
+        script: composer update
+        - stage: "Building docker image"
+        script:
+          - docker pull php
+          - docker build -t recrutement-test-stages-demo .
+          - docker images
+          
