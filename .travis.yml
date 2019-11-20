@@ -15,7 +15,7 @@ jobs:
           script: 
           - docker pull php
           - docker build -t recrutement .
-          - docker run -it --rm recrutement -p 8080:80
+          - docker run -it -p 8080:80 recrutement
           - docker ps -a
           - echo "Running job 1.1"
         - stage: "Executing security tests"
