@@ -1,6 +1,6 @@
 {
     "name": "cedrics/recrutement-test",
-    "require-dev": {
+    "require": {
         "phpunit/phpunit": "^7.5"
     },
     "authors": [
