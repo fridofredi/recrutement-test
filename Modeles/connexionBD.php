@@ -9,7 +9,7 @@ class Connexion
     private static $pdo;
 
     private static $host = 'localhost';
-    private static $dbname = 'recrutementtest';
+    private static $dbname = 'recrutementTest';
     private static $user = 'root';
     private static $password = '';
 
