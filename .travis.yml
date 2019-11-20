@@ -13,7 +13,7 @@ jobs:
     include:
         - stage: "Building docker image"
           script: 
-          - echo "Running job 1"
+          - docker pull php
           - echo "Running job 1.1"
         - stage: "Executing security tests"
           script: echo "Running security test"
